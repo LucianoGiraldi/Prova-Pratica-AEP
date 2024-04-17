@@ -7,7 +7,7 @@
 // Estrutura para representar um contato
 typedef struct {
     char nome[50];
-    char telefone[15];
+    char telefone[16]; // Alterado para 16 para incluir os parênteses e o traço
 } Contato;
 
 // Variáveis globais
@@ -18,6 +18,7 @@ int numContatos = 0;
 void adicionarContato();
 void removerContato();
 void buscarContato();
+void formatarTelefone(char *telefone);
 
 int main() {
     int opcao;
@@ -60,6 +61,7 @@ void adicionarContato() {
         scanf("%s", listaTelefonica[numContatos].nome);
         printf("Digite o telefone do contato: ");
         scanf("%s", listaTelefonica[numContatos].telefone);
+        formatarTelefone(listaTelefonica[numContatos].telefone);
         numContatos++;
         printf("Contato adicionado com sucesso!\n");
     } else {
@@ -113,4 +115,14 @@ void buscarContato() {
     if (!encontrado) {
         printf("Contato não encontrado na lista telefônica.\n");
     }
+}
+
+// Função para formatar o número de telefone como (xx) xxxxx-xxxx
+void formatarTelefone(char *telefone) {
+    char telefoneFormatado[16];
+    sprintf(telefoneFormatado, "(%c%c) %c%c%c%c-%c%c%c%c", 
+            telefone[0], telefone[1], 
+            telefone[3], telefone[4], telefone[5], telefone[6], telefone[7], 
+            telefone[8], telefone[9], telefone[10]);
+    strcpy(telefone, telefoneFormatado);
 }
